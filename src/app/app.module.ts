@@ -11,6 +11,7 @@ import { TopNavbarComponent } from './components/top-navbar/top-navbar.component
 import { AnalyticsTableComponent } from './components/analytics-table/analytics-table.component';
 import { MaterialModule } from './modules/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
