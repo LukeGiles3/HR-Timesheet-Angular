@@ -1,6 +1,7 @@
+import { EmployeeService } from './../../services/employee.service';
 import { Employee } from './../../interfaces/employee';
 import { DepartmentsService } from './../../services/departments.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Department } from 'src/app/interfaces/department';
 import { FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
@@ -20,7 +21,9 @@ export class TimesheetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private departmentsService: DepartmentsService
+    private departmentsService: DepartmentsService,
+    private employeeService: EmployeeService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +35,7 @@ addEmployee(): void {
       this.employeeId++;
 
       this.employees.push({
-          id: this.employeeId.toString(),
+          // id: this.employeeId.toString(),
           departmentId: this.department.id,
           name: this.employeeNameFC.value,
           payRate: Math.floor(Math.random() * 50) + 50,
@@ -67,6 +70,13 @@ getTotalHours(employee: Employee): number {
 }
 deleteEmployee(index: number): void {
   this.employees.splice(index, 1);
+}
+submit(): void {
+  this.employees.forEach(employee => {
+      this.employeeService.saveEmployeeHours(employee);
+  });
+
+  this.router.navigate(['./departments']);
 }
 
 }
